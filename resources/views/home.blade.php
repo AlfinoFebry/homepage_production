@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Laravel</title>
 
         <!-- Fonts -->
@@ -129,5 +129,92 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="linkModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="linkModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="linkForm">
+                        <div class="form-group mb-3">
+                            <label for="NIK">URL</label>
+                            <input type="text" class="form-control form-control-user" id="url" name="url" required autofocus value="">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="nama">NAMA</label>
+                            <input type="text" class="form-control form-control-user" id="title" name="title" required autofocus value="">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="nama">Gambar</label>
+                            <input type="text" class="form-control form-control-user" id="gambar" name="gambar" required autofocus value="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer p-0 pt-2 pe-2">
+                    <button type="button" class="btn btn-sm bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm bg-gradient-primary" id="submitBtn" onclick="submitForm()">Save Change</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-sm px-3 pe-3 bg-gradient-primary mb-0" id="tambahDataBtn">
+                        + Tambah Data
+                    </a>
+
+    <script src="{{ asset('assets/js/plugins/jquery-3.6.4.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tambahDataBtn').click(function() {
+                resetFormFields();
+                $('#NIK').prop('disabled', false);
+                $('#submitBtn').text('Submit');
+                $('#linkModalLabel').text('Tambah User');
+                $('#linkForm').attr('action', '{{ route('links.store') }}');
+
+                $('#linkModal').modal('show');
+            });
+
+            function resetFormFields() {
+                $('#url').val('');
+                $('#title').val('');
+                $('#gambar').val('');
+            }
+        });
+        
+        function submitForm() {
+            var formData = $('#linkForm').serialize();
+            var actionUrl = $('#linkForm').attr('action');
+            var method = 'POST';
+
+            if (actionUrl.includes('update-user')) {
+                method = 'PUT';
+            }
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: actionUrl,
+                type: method,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function(response) {
+                    $('#linkModal').modal('hide');
+                    Swal.fire({
+                        title: "Success",
+                        text: "Data Berhasil Disimpan",
+                        icon: "success",
+                        timer: 3500
+                    });
+                },
+                error: function(xhr, status, error) {}
+            });
+            }
+    </script>
     </body>
 </html>
+
