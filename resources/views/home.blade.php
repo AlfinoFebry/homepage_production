@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />4
 
         <!-- Styles -->
         <style>
@@ -165,6 +165,7 @@
                     </a>
 
     <script src="{{ asset('assets/js/plugins/jquery-3.6.4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#tambahDataBtn').click(function() {
