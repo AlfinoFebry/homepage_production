@@ -2,112 +2,164 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Personal - Start Bootstrap Theme</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Custom Google font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Vesperr Bootstrap Template - Index</title>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
-        rel="stylesheet" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
     <style>
-        body {
-            background: url("{{ asset('assets/assets/bg.jpg') }}") center/cover no-repeat fixed;
+        /* Awalnya sembunyikan icon */
+        .icon-box .menu {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s ease;
         }
 
-        .zoom-on-hover .bg-white {
-            transition: transform 0.3s ease;
+        /* Tampilkan icon saat parent (icon-box) dihover */
+        .icon-box:hover .menu {
+            visibility: visible;
+            opacity: 1;
         }
 
-        .zoom-on-hover:hover .bg-white {
-            transform: scale(1.1);
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
         }
 
-        .zoom-on-hover:hover {
-            transition: transform 0.3s ease;
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-container:hover .dropdown-content {
+            display: block;
         }
     </style>
 </head>
 
-<body class="d-flex flex-column h-100">
-    <main class="flex-shrink-0">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light py-3 mb-5">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <h2 class="fw-bolder text-primary">PRODUCTION</h2>
-                </a>
+<body>
+
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            <div class="logo">
+                <h1><a href="index.html">Welcome To Production</a></h1>
             </div>
-        </nav>
-        <!-- Header-->
-        <div class="d-flex">
-            <div class="container d-flex align-items-center justify-content-center">
-                <div class="row w-100">
-                    <!-- <div class="col-md-3 mb-5 d-flex align-items-center justify-content-center text-center ">
-                        <a href="#" class="zoom-on-hover">
-                            <div class="position-relative" style="width: 170px; height: 170px;">
-                                <img src="{{ asset('images/1707970140936.png') }}" alt="Image" class="position-absolute start-50 translate-middle"
-                                    style="width: 250px; height: auto; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;">
-                                <div class="bg-white shadow px-2 d-flex align-items-center justify-content-center text-center"
-                                    style="position: absolute; width: 100%; height: 100%; border-radius: 15px; backdrop-filter: blur(20px); opacity:30%">
-                                    <div class="m-1 border w-80 h-80"></div>
-                                </div>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="#services">Menu Aplikasi</a></li>
+                    <li><a class="getstarted scrollto" href="#about">Tentang Kami</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+
+        </div>
+    </header>
+
+    <section id="services" class="services">
+        <div class="container">
+
+            <div class="section-title mb-3 pt-5" data-aos="fade-up">
+                <h2>Menu Aplikasi</h2>
+                <p>Crafting Excellence, Scene by Scene.</p>
+            </div>
+
+            <div class="row">
+                @foreach($links as $link) 
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 lg-0">
+                    <div class="text-center w-100">
+                        <div class="icon-box w-100" data-aos="fade-up" data-aos-delay="100">
+                            <button type="button"
+                            class="icon menu dropdown d-flex align-items-center justify-content-center position-absolute top-0 end-0 mt-2 me-2 p-2"
+                            style="height: 30px; width: 30px;">
+                            <img class="img" src="assets/img/menu.png" alt="Your Image"
+                            style="max-height: 20px;">
+                        </button>
+                        <a href="http://{{$link->url}}">
+                            <div class="icon d-flex align-items-center justify-content-center"
+                        style="height: 100px; width: 100px;"><img src="{{ asset('images/'. $link->gambar . '.png') }}" alt="Your Image"
+                                        style="max-height: 100px;">
+                                    </div>
+                                        <h4 class="title"><a href="">{{ $link->title}}</a></h4>
+                                    </div>
                             </div>
                         </a>
-                    </div> -->
-                    <div class="col-md-3 mb-5 d-flex align-items-center justify-content-center text-center">
-                        <a href="#" class="zoom-on-hover">
-                            <div class="bg-white shadow px-2 d-flex align-items-center justify-content-center text-center"
-                                style="width: 170px; height: 170px; border-radius: 15px; backdrop-filter: blur(20px);">
-                                <div class="position-relative">
-                                    <img src="{{ asset('images/1.png') }}" alt="Image" class="position-absolute start-50 translate-middle"
-                                        style="width: 250px; height: auto; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                                </div>
-                                <div class="m-1 border w-80 h-80"></div>
-                            </div>
-                        </a>
                     </div>
-                    <div class="col-md-3 mb-5 d-flex align-items-center justify-content-center text-center">
-                        <a class="zoom-on-hover" id="tambahDataBtn">
-                            <div class="bg-white shadow px-2 d-flex align-items-center justify-content-center text-center"
-                                style="width: 170px; height: 170px; border-radius: 15px; backdrop-filter: blur(20px);">
-                                <div class="position-relative">
-                                    <img src="{{ asset('images/more.png') }}" alt="Image" class="position-relative"
-                                        style="width: 170px; height: auto;">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-5 d-flex align-items-center justify-content-center text-center">
-                        <div class="bg-white shadow" style="width: 170px; height: 170px; border-radius: 15px;"></div>
-                    </div>
-                    <div class="col-md-3 mb-5 d-flex align-items-center justify-content-center text-center">
-                        <div class="bg-white shadow" style="width: 170px; height: 170px; border-radius: 15px;"></div>
-                    </div>
-                    <div class="col-md-3 mb-5 d-flex align-items-center justify-content-center text-center">
-                        <div class="bg-white shadow" style="width: 170px; height: 170px; border-radius: 15px;"></div>
-                    </div>
-                    <div class="col-md-3 mb-5 d-flex align-items-center justify-content-center text-center">
-                        <div class="bg-white shadow" style="width: 170px; height: 170px; border-radius: 15px;"></div>
+                @endforeach
+
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 lg-0" id="tambahDataBtn">
+                    <div class="text-center w-100">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+                            <div class="icon d-flex align-items-center justify-content-center p-3"
+                                style="height: 100px; width: 100px;"><i class="bx bx-plus"></i></div>
+                            <h4 class="title">Tambah Menu</h4>
+                        </div>
                     </div>
                 </div>
+                
             </div>
-        </div>
 
-    </main>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <h2>About Us</h2>
+            </div>
+
+            <div class="row content">
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore
+                        magna aliqua.
+                    </p>
+                    <ul>
+                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat</li>
+                        <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate
+                            velit</li>
+                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-up" data-aos-delay="300">
+                    <p>
+                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                        in voluptate
+                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <a href="#" class="btn-learn-more">Learn More</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -127,7 +179,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="linkModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -163,9 +214,7 @@
         </div>
     </div>
 
-
     <script src="{{ asset('assets/js/plugins/jquery-3.6.4.min.js') }}"></script>
-    <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const imageOptions = document.querySelectorAll('.image-option');
@@ -180,7 +229,6 @@
         $(document).ready(function() {
             $('#tambahDataBtn').click(function() {
                 resetFormFields();
-                $('#NIK').prop('disabled', false);
                 $('#submitBtn').text('Submit');
                 $('#linkModalLabel').text('Tambah Shortcut');
                 $('#linkForm').attr('action', '{{ route('links.store') }}');
@@ -215,17 +263,31 @@
                 },
                 success: function(response) {
                     $('#linkModal').modal('hide');
-                    Swal.fire({
-                        title: "Success",
-                        text: "Data Berhasil Disimpan",
-                        icon: "success",
-                        timer: 3500
-                    });
+
+                    // Swal.fire({
+                    //     title: "Success",
+                    //     text: "Data Berhasil Disimpan",
+                    //     icon: "success",
+                    //     timer: 3500
+                    // }).then(function() {
+                    // });
+                    window.location.reload();
                 },
                 error: function(xhr, status, error) {}
             });
             }
     </script>
+
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>
