@@ -14,7 +14,8 @@ class LinkController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $links = Link::all();
+        return view('home', compact('links'));
     }
 
     /**
