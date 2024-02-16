@@ -53,7 +53,7 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        //
+        return response()->json(['link' => $link]);
     }
 
     /**
@@ -76,5 +76,7 @@ class LinkController extends Controller
     public function destroy(Link $link)
     {
         $link->delete();
+
+        return redirect()->back();
     }
 }

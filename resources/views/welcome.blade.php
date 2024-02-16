@@ -11,9 +11,7 @@
     <meta content="" name="keywords">
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="assets/css/font.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -23,35 +21,35 @@
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <style>
-        /* Awalnya sembunyikan icon */
         .icon-box .menu {
             visibility: hidden;
             opacity: 0;
             transition: visibility 0s, opacity 0.5s ease;
         }
 
-        /* Tampilkan icon saat parent (icon-box) dihover */
         .icon-box:hover .menu {
             visibility: visible;
             opacity: 1;
-        }
-
-        .dropdown-container {
-            position: relative;
-            display: inline-block;
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: #f9f9f9;
-            min-width: 160px;
+            min-width: 80%;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
-        .dropdown-container:hover .dropdown-content {
+        .dropdown-content a {
+            padding: 12px 16px;
+            text-decoration: none;
             display: block;
+            color: #333;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
         }
     </style>
 </head>
@@ -85,38 +83,40 @@
             </div>
 
             <div class="row">
-                @foreach($links as $link) 
+                @foreach($links as $link)
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 lg-0">
                     <div class="text-center w-100">
                         <div class="icon-box w-100" data-aos="fade-up" data-aos-delay="100">
-                            <button type="button"
-                            class="icon menu dropdown d-flex align-items-center justify-content-center position-absolute top-0 end-0 mt-2 me-2 p-2"
-                            style="height: 30px; width: 30px;">
-                            <img class="img" src="assets/img/menu.png" alt="Your Image"
-                            style="max-height: 20px;">
-                        </button>
-                        <a href="http://{{$link->url}}">
-                            <div class="icon d-flex align-items-center justify-content-center"
-                        style="height: 100px; width: 100px;"><img src="{{ asset('images/'. $link->gambar . '.png') }}" alt="Your Image"
-                                        style="max-height: 100px;">
-                                    </div>
-                                        <h4 class="title"><a href="">{{ $link->title}}</a></h4>
-                                    </div>
+                            <button type="button" class="icon menu dropdown-btn d-flex align-items-center justify-content-center position-absolute top-0 end-0 mt-2 me-2 p-2" style="height: 30px; width: 30px;">
+                                <img class="img" src="assets/img/menu.png" alt="Your Image" style="max-height: 20px;">
+                            </button>
+                            <div class="dropdown-content">
+                                <form action="{{ route('links.destroy',$link->id) }}" method="POST">
+                                <a id="editDataBtn" value="{{$link->id}}">Edit</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn bg-gradient-secondary">Delete</button>
+                                </form>
                             </div>
-                        </a>
+                            <a href="http://{{$link->url}}">
+                                <div class="icon d-flex align-items-center justify-content-center" style="height: 100px; width: 100px;"><img src="{{ asset('images/'. $link->gambar . '.png') }}" alt="Your Image" style="max-height: 100px;">
+                                </div>
+                                <h4 class="title"><a>{{ $link->title}}</a></h4>
+                        </div>
                     </div>
+                    </a>
+                </div>
                 @endforeach
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 lg-0" id="tambahDataBtn">
                     <div class="text-center w-100">
                         <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
-                            <div class="icon d-flex align-items-center justify-content-center p-3"
-                                style="height: 100px; width: 100px;"><i class="bx bx-plus"></i></div>
+                            <div class="icon d-flex align-items-center justify-content-center p-3" style="height: 100px; width: 100px;"><i class="bx bx-plus"></i></div>
                             <h4 class="title">Tambah Menu</h4>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
         </div>
@@ -169,18 +169,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        @for($i = 1; $i <= 14; $i++)
-                        <div class="col-md-4 mb-3"> 
+                        @for($i = 1; $i <= 14; $i++) <div class="col-md-4 mb-3">
                             <img src="{{ asset('images/'. $i .'.png') }}" value="{{$i}}" alt="Image {{$i}}" class="img-fluid image-option" data-bs-toggle="modal" data-bs-target="#linkModal">
-                        </div>
-                        @endfor
                     </div>
+                    @endfor
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="linkModalLabel"
-        aria-hidden="true">
+    </div>
+    <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="linkModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -216,13 +214,33 @@
 
     <script src="{{ asset('assets/js/plugins/jquery-3.6.4.min.js') }}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const imageOptions = document.querySelectorAll('.image-option');
 
-            imageOptions.forEach(function (imageOption) {
-                imageOption.addEventListener('click', function () {
+            imageOptions.forEach(function(imageOption) {
+                imageOption.addEventListener('click', function() {
                     const imageUrl = this.getAttribute('value');
                     document.getElementById('gambar').value = imageUrl;
+                });
+            });
+
+            var dropdownBtns = document.querySelectorAll('.dropdown-btn');
+
+            dropdownBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var dropdownContent = this.nextElementSibling;
+
+                    dropdownBtns.forEach(function (otherBtn) {
+                        if (otherBtn !== btn) {
+                            otherBtn.nextElementSibling.style.display = 'none';
+                        }
+                    });
+
+                    if (dropdownContent.style.display === 'block') {
+                        dropdownContent.style.display = 'none';
+                    } else {
+                        dropdownContent.style.display = 'block';
+                    }
                 });
             });
         });
@@ -236,13 +254,39 @@
                 $('#linkModal').modal('show');
             });
 
+            $('#editDataBtn').click(function() {
+                $('#submitBtn').text('Update');
+                $('#linkModalLabel').text('Edit Shortcut');
+
+                var id = $(this).attr('value');
+                var editUrl = '{{ route('links.edit', ':id') }}'.replace(':id', id);
+
+                $.ajax({
+                    url: editUrl,
+                    type: 'GET',
+                    success: function(response) {
+                        var link = response.link;
+                        $('#title').val(link.title);
+                        $('#url').val(link.url);
+                        $('#gambar').val(link.gambar);
+
+                        $('#linkForm').attr('action', '{{ route('links.update', ':id') }}'.replace(':id', id));
+
+                        $('#linkModal').modal('show');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+
             function resetFormFields() {
                 $('#url').val('');
                 $('#title').val('');
                 $('#gambar').val('');
             }
         });
-        
+
         function submitForm() {
             var formData = $('#linkForm').serialize();
             var actionUrl = $('#linkForm').attr('action');
@@ -275,8 +319,31 @@
                 },
                 error: function(xhr, status, error) {}
             });
-            }
+        }
     </script>
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dropdownBtns = document.querySelectorAll('.dropdown-btn');
+
+            dropdownBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var dropdownContent = this.nextElementSibling;
+
+                    dropdownBtns.forEach(function (otherBtn) {
+                        if (otherBtn !== btn) {
+                            otherBtn.nextElementSibling.style.display = 'none';
+                        }
+                    });
+
+                    if (dropdownContent.style.display === 'block') {
+                        dropdownContent.style.display = 'none';
+                    } else {
+                        dropdownContent.style.display = 'block';
+                    }
+                });
+            });
+        });
+    </script> -->
 
     <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="assets/vendor/aos/aos.js"></script>
