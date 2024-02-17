@@ -92,11 +92,11 @@
                                 <img class="img" src="assets/img/menu.png" alt="Your Image" style="max-height: 20px;">
                             </button>
                             <div class="dropdown-content">
-                                <form action="{{ route('links.destroy',$link->id) }}" method="POST">
-                                <a id="editDataBtn" value="{{$link->id}}">Edit</a>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn bg-gradient-secondary">Delete</button>
+                                <form id="deleteForm{{ $link->id }}" action="{{ route('links.destroy', $link->id) }}" method="POST">
+                                    <a id="editDataBtn" value="{{$link->id}}">Edit</a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn bg-gradient-secondary deleteBtn">Delete</button>
                                 </form>
                             </div>
                             <a href="http://{{$link->url}}">
@@ -273,25 +273,30 @@
                     btn.nextElementSibling.style.display = 'none';
                 });
             });
+            document.getElementById('password').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    document.getElementById('passBtn').click();
+                }
+            });
         });
         $(document).ready(function() {
             var btnId = '';
             var value = '';
-            $('#tambahDataBtn, #editDataBtn').click(function() {
-                // Show password modal
+            var linkIdToDelete;
+            $('#tambahDataBtn, #editDataBtn, .deleteBtn').click(function() {
                 btnId = $(this).attr('id');
                 if (btnId === 'editDataBtn') {
                     value = $(this).attr('value');
+                } else if ($(this).hasClass('deleteBtn')){
+                    btnId = 'delete';
+                    linkIdToDelete = $(this).closest('form').attr('id').replace('deleteForm', '');
                 }
-                console.log(btnId);
                 $('#passModal').modal('show');
             });
 
-            // Handle submit button click in passModal
             $('#passModal #passBtn').click(function() {
                 var password = $('#password').val();
 
-                // Make AJAX request to check password
                 $.ajax({
                     url: '{{ route('passwords') }}',
                     type: 'POST',
@@ -301,13 +306,15 @@
                     },
                     success: function(response) {
                         if (response.message === 'Password is correct') {
-                            // Password is correct, open corresponding modal
                             console.log(btnId);
-                            if (btnId === 'tambahDataBtn') {
+                            if (btnId === 'delete') {
+                                $('#deleteForm' + linkIdToDelete).submit();
+                            } else if (btnId === 'tambahDataBtn') {
                                 resetFormFields();
                                 $('#submitBtn').text('Submit');
                                 $('#linkModalLabel').text('Tambah Shortcut');
                                 $('#linkForm').attr('action', '{{ route('links.store') }}');
+                                $('#linkModal').modal('show');
                             } else if (btnId === 'editDataBtn') {
                                 $('#submitBtn').text('Update');
                                 $('#linkModalLabel').text('Edit Shortcut');
@@ -322,13 +329,14 @@
                                         $('#url').val(link.url);
                                         $('#gambar').val(link.gambar);
                                         $('#linkForm').attr('action', '{{ route('links.update', ':id') }}'.replace(':id', id));
+                                        $('#linkModal').modal('show');
                                     },
                                     error: function(xhr, status, error) {
                                         console.error(error);
                                     }
                                 });
                             }
-                            $('#linkModal').modal('show');
+                            
                         } else if (response.message === 'Password is incorrect') {
                             alert('Password SALAH!');
                         }
@@ -337,11 +345,9 @@
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
-                        // Handle error if AJAX request fails
                     }
                 });
                 
-                // Prevent default form submission
                 return false;
             });
 
