@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Vesperr Bootstrap Template - Index</title>
+    <link href="images/rumah-produksi.png" rel="icon">
+    <link href="images/rumah-produksi.png" rel="apple-touch-icon">
+    <title>PRODUCTION</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="" name="description">
     <meta content="" name="keywords">
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
     <link href="assets/css/font.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -101,10 +101,10 @@
                             <a href="http://{{$link->url}}">
                                 <div class="icon d-flex align-items-center justify-content-center" style="height: 100px; width: 100px;"><img src="{{ asset('images/'. $link->gambar . '.png') }}" alt="Your Image" style="max-height: 100px;">
                                 </div>
-                                <h4 class="title"><a>{{ $link->title}}</a></h4>
+                                <h4 class="title"><a href="http://{{$link->url}}">{{ $link->title}}</a></h4>
+                            </a>
                         </div>
                     </div>
-                    </a>
                 </div>
                 @endforeach
 
@@ -321,29 +321,6 @@
             });
         }
     </script>
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var dropdownBtns = document.querySelectorAll('.dropdown-btn');
-
-            dropdownBtns.forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    var dropdownContent = this.nextElementSibling;
-
-                    dropdownBtns.forEach(function (otherBtn) {
-                        if (otherBtn !== btn) {
-                            otherBtn.nextElementSibling.style.display = 'none';
-                        }
-                    });
-
-                    if (dropdownContent.style.display === 'block') {
-                        dropdownContent.style.display = 'none';
-                    } else {
-                        dropdownContent.style.display = 'block';
-                    }
-                });
-            });
-        });
-    </script> -->
 
     <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="assets/vendor/aos/aos.js"></script>
