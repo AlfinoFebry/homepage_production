@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LinkController;
+use App\Http\Controllers\PasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LinkController::class, 'index']);
 
 Route::resource('links', LinkController::class);
+
+Route::post('/passwords', [PasswordController::class, 'check'])->name('passwords');

@@ -154,6 +154,31 @@
         </div>
     </div>
 
+    <div class="modal fade" id="passModal" tabindex="-1" role="dialog" aria-labelledby="passModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="linkForm">
+                        <div class="form-group mb-3">
+                            <label for="NIK">Masukan Password</label>
+                            <input type="password" class="form-control form-control-user" id="password" name="password" required autofocus value="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer p-0 pt-2 pe-2">
+                    <button type="button" class="btn btn-sm bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm bg-gradient-primary" id="submitBtn" onclick="submitForm()">Save Change</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <script src="{{ asset('assets/js/plugins/jquery-3.6.4.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
@@ -171,12 +196,11 @@
         $(document).ready(function() {
             $('#tambahDataBtn').click(function() {
                 resetFormFields();
-                $('#NIK').prop('disabled', false);
                 $('#submitBtn').text('Submit');
                 $('#linkModalLabel').text('Tambah Shortcut');
                 $('#linkForm').attr('action', '{{ route('links.store') }}');
 
-                $('#linkModal').modal('show');
+                $('#passModal').modal('show');
             });
 
             function resetFormFields() {
