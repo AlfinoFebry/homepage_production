@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Production - SAI</title>
-    <img id="titleIcon" class="img" src="assets/iages/wire (1).png" alt="Title Icon">
+    <img id="titleIcon" class="img" src="assets/images/wire (1).png" alt="Title Icon">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="" name="description">
@@ -213,6 +213,28 @@
         </div>
     </div>
 
+    <div class="modal fade" id="passModal" tabindex="-1" role="dialog" aria-labelledby="passModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="NIK">Masukan Password</label>
+                            <input type="password" class="form-control form-control-user" id="password" name="password" required autofocus value="">
+                        </div>
+                </div>
+                <div class="modal-footer p-0 pt-2 pe-2">
+                    <button type="button" class="btn btn-sm bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm bg-gradient-primary" id="passBtn">confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ asset('assets/js/plugins/jquery-3.6.4.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -253,38 +275,74 @@
             });
         });
         $(document).ready(function() {
-            $('#tambahDataBtn').click(function() {
-                resetFormFields();
-                $('#submitBtn').text('Submit');
-                $('#linkModalLabel').text('Tambah Shortcut');
-                $('#linkForm').attr('action', '{{ route('links.store') }}');
-
-                $('#linkModal').modal('show');
+            var btnId = '';
+            var value = '';
+            $('#tambahDataBtn, #editDataBtn').click(function() {
+                // Show password modal
+                btnId = $(this).attr('id');
+                if (btnId === 'editDataBtn') {
+                    value = $(this).attr('value');
+                }
+                console.log(btnId);
+                $('#passModal').modal('show');
             });
 
-            $(document).on('click', '#editDataBtn', function()  {
-                $('#submitBtn').text('Update');
-                $('#linkModalLabel').text('Edit Shortcut');
+            // Handle submit button click in passModal
+            $('#passModal #passBtn').click(function() {
+                var password = $('#password').val();
 
-                var id = $(this).attr('value');
-                var editUrl = '{{ route('links.edit', ':id') }}'.replace(':id', id);
-
+                // Make AJAX request to check password
                 $.ajax({
-                    url: editUrl,
-                    type: 'GET',
+                    url: '{{ route('passwords') }}',
+                    type: 'POST',
+                    data: { password: password },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     success: function(response) {
-                        var link = response.link;
-                        $('#title').val(link.title);
-                        $('#url').val(link.url);
-                        $('#gambar').val(link.gambar);
-                        $('#linkForm').attr('action', '{{ route('links.update', ':id') }}'.replace(':id', id));
-
-                        $('#linkModal').modal('show');
+                        if (response.message === 'Password is correct') {
+                            // Password is correct, open corresponding modal
+                            console.log(btnId);
+                            if (btnId === 'tambahDataBtn') {
+                                resetFormFields();
+                                $('#submitBtn').text('Submit');
+                                $('#linkModalLabel').text('Tambah Shortcut');
+                                $('#linkForm').attr('action', '{{ route('links.store') }}');
+                            } else if (btnId === 'editDataBtn') {
+                                $('#submitBtn').text('Update');
+                                $('#linkModalLabel').text('Edit Shortcut');
+                                var id = value;
+                                var editUrl = '{{ route('links.edit', ':id') }}'.replace(':id', id);
+                                $.ajax({
+                                    url: editUrl,
+                                    type: 'GET',
+                                    success: function(response) {
+                                        var link = response.link;
+                                        $('#title').val(link.title);
+                                        $('#url').val(link.url);
+                                        $('#gambar').val(link.gambar);
+                                        $('#linkForm').attr('action', '{{ route('links.update', ':id') }}'.replace(':id', id));
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error(error);
+                                    }
+                                });
+                            }
+                            $('#linkModal').modal('show');
+                        } else if (response.message === 'Password is incorrect') {
+                            alert('Password SALAH!');
+                        }
+                        $('#password').val('');
+                        $('#passModal').modal('hide');
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
+                        // Handle error if AJAX request fails
                     }
                 });
+                
+                // Prevent default form submission
+                return false;
             });
 
             function resetFormFields() {
@@ -293,6 +351,7 @@
                 $('#gambar').val('');
             }
         });
+
 
         function submitForm() {
             var formData = $('#linkForm').serialize();
