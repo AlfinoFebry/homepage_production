@@ -204,9 +204,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer p-0 pt-2 pe-2">
-                    <button type="button" class="btn btn-sm bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm bg-gradient-primary" id="submitBtn" onclick="submitForm()">Save Change</button>
+                <div class="modal-footer p-2">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="submitBtn" onclick="submitForm()">Save Change</button>
                 </div>
             </div>
         </div>
@@ -226,9 +226,9 @@
                             <input type="password" class="form-control form-control-user" id="password" name="password" required autofocus value="">
                         </div>
                 </div>
-                <div class="modal-footer p-0 pt-2 pe-2">
-                    <button type="button" class="btn btn-sm bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm bg-gradient-primary" id="passBtn">confirm</button>
+                <div class="modal-footer p-2">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="passBtn">confirm</button>
                 </div>
             </div>
         </div>
