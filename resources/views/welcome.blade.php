@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Vesperr Bootstrap Template - Index</title>
+    <title>Production - SAI</title>
+    <img id="titleIcon" class="img" src="assets/iages/wire (1).png" alt="Title Icon">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="" name="description">
@@ -65,8 +66,8 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto" href="#services">Menu Aplikasi</a></li>
-                    <li><a class="getstarted scrollto" href="#about">Tentang Kami</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Menu</a></li>
+                    <li><a class="getstarted scrollto" href="#about">About Us</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -78,13 +79,13 @@
         <div class="container">
 
             <div class="section-title mb-3 pt-5" data-aos="fade-up">
-                <h2>Menu Aplikasi</h2>
+                <h2>Menu</h2>
                 <p>Crafting Excellence, Scene by Scene.</p>
             </div>
 
             <div class="row">
                 @foreach($links as $link)
-                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 lg-0">
+                <div class="col-sm-6 col-md-4 col-xl-3 d-flex align-items-stretch mb-5 lg-0">
                     <div class="text-center w-100">
                         <div class="icon-box w-100" data-aos="fade-up" data-aos-delay="100">
                             <button type="button" class="icon menu dropdown-btn d-flex align-items-center justify-content-center position-absolute top-0 end-0 mt-2 me-2 p-2" style="height: 30px; width: 30px;">
@@ -227,7 +228,7 @@
             var dropdownBtns = document.querySelectorAll('.dropdown-btn');
 
             dropdownBtns.forEach(function (btn) {
-                btn.addEventListener('click', function () {
+                btn.addEventListener('click', function (event) {
                     var dropdownContent = this.nextElementSibling;
 
                     dropdownBtns.forEach(function (otherBtn) {
@@ -241,6 +242,13 @@
                     } else {
                         dropdownContent.style.display = 'block';
                     }
+                    event.stopPropagation();
+                });
+            });
+
+            document.addEventListener('click', function () {
+                dropdownBtns.forEach(function (btn) {
+                    btn.nextElementSibling.style.display = 'none';
                 });
             });
         });
@@ -254,7 +262,7 @@
                 $('#linkModal').modal('show');
             });
 
-            $('#editDataBtn').click(function() {
+            $(document).on('click', '#editDataBtn', function()  {
                 $('#submitBtn').text('Update');
                 $('#linkModalLabel').text('Edit Shortcut');
 
@@ -269,7 +277,6 @@
                         $('#title').val(link.title);
                         $('#url').val(link.url);
                         $('#gambar').val(link.gambar);
-
                         $('#linkForm').attr('action', '{{ route('links.update', ':id') }}'.replace(':id', id));
 
                         $('#linkModal').modal('show');
@@ -292,7 +299,7 @@
             var actionUrl = $('#linkForm').attr('action');
             var method = 'POST';
 
-            if (actionUrl.includes('update-user')) {
+            if ($('#submitBtn').text() === 'Update') {
                 method = 'PUT';
             }
 
