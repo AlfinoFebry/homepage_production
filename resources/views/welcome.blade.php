@@ -60,7 +60,7 @@
         <div class="container d-flex align-items-center justify-content-between">
 
             <div class="logo">
-                <h1><a href="index.html">Welcome To Production</a></h1>
+                <h1><a href="">Welcome To Production</a></h1>
             </div>
 
             <nav id="navbar" class="navbar">
@@ -91,12 +91,12 @@
                                 <img class="img" src="assets/img/menu.png" alt="Your Image" style="max-height: 20px;">
                             </button>
                             <div class="dropdown-content">
-                                <form action="{{ route('links.destroy',$link->id) }}" method="POST">
                                 <a id="editDataBtn" value="{{$link->id}}">Edit</a>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn bg-gradient-secondary">Delete</button>
-                                </form>
+                                <a href="{{ route('links.destroy', $link->id) }}" onclick="event.preventDefault(); document.getElementById('deleteForm{{$link->id}}').submit();">Delete</a>
+                                <form id="deleteForm{{$link->id}}" action="{{ route('links.destroy', $link->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form> 
                             </div>
                             <a href="http://{{$link->url}}">
                                 <div class="icon d-flex align-items-center justify-content-center" style="height: 100px; width: 100px;"><img src="{{ asset('images/'. $link->gambar . '.png') }}" alt="Your Image" style="max-height: 100px;">
@@ -108,8 +108,8 @@
                 </div>
                 @endforeach
 
-                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 lg-0" id="tambahDataBtn">
-                    <div class="text-center w-100">
+                <div class="col-sm-6 col-md-4 col-xl-3 d-flex align-items-stretch mb-5 lg-0">
+                    <div class="text-center w-100" id="tambahDataBtn" style="cursor: pointer">
                         <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
                             <div class="icon d-flex align-items-center justify-content-center p-3" style="height: 100px; width: 100px;"><i class="bx bx-plus"></i></div>
                             <h4 class="title">Tambah Menu</h4>
@@ -188,25 +188,25 @@
                 <div class="modal-body">
                     <form id="linkForm">
                         <div class="form-group mb-3">
-                            <label for="NIK">URL</label>
-                            <input type="text" class="form-control form-control-user" id="url" name="url" required autofocus value="">
+                            <label for="url">URL</label>
+                            <input type="text" class="form-control" id="url" name="url" required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="nama">NAMA</label>
-                            <input type="text" class="form-control form-control-user" id="title" name="title" required autofocus value="">
+                            <label for="title">NAMA</label>
+                            <input type="text" class="form-control" id="title" name="title" required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="gambar">Gambar</label>
-                            <input type="text" class="form-control form-control-user" id="gambar" name="gambar" required autofocus value="" hidden>
+                            <input type="text" class="form-control" id="gambar" name="gambar" required autofocus value="" hidden>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#imageModal">
                                 Choose Image
                             </button>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer p-0 pt-2 pe-2">
-                    <button type="button" class="btn btn-sm bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm bg-gradient-primary" id="submitBtn" onclick="submitForm()">Save Change</button>
+                <div class="modal-footer p-2">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="submitBtn" onclick="submitForm()">Save Change</button>
                 </div>
             </div>
         </div>
