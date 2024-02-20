@@ -4,22 +4,21 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link href="images/rumah-produksi.png" rel="icon">
-    <link href="images/rumah-produksi.png" rel="apple-touch-icon">
     <title>PRODUCTION - SAI</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/production.png')}}" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="" name="description">
     <meta content="" name="keywords">
-    <link href="assets/css/font.css" rel="stylesheet">
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/font.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
     <style>
         .icon-box .menu {
             visibility: hidden;
@@ -60,7 +59,7 @@
         <div class="container d-flex align-items-center justify-content-between">
 
             <div class="logo">
-                <h1><a href="index.html">Welcome To Production</a></h1>
+                <h1><a href="#">Welcome To Production</a></h1>
             </div>
 
             <nav id="navbar" class="navbar">
