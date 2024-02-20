@@ -109,7 +109,7 @@
                 </div>
                 @endforeach
 
-                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 lg-0">
+                <div class="col-sm-6 col-md-4 col-xl-3 d-flex align-items-stretch mb-5 lg-0">
                     <div class="text-center w-100" id="tambahDataBtn" style="cursor: pointer;">
                         <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
                             <div class="icon d-flex align-items-center justify-content-center p-3" style="height: 100px; width: 100px;"><i class="bx bx-plus"></i></div>
