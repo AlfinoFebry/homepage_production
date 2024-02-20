@@ -65,8 +65,10 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
+                    <!-- <li><a class="nav-link scrollto" href="#services">Menu</a></li>
+                    <li><a class="getstarted scrollto" href="#about">About Us</a></li> -->
                     <li><a class="nav-link scrollto" href="#services">Menu</a></li>
-                    <li><a class="getstarted scrollto" href="#about">About Us</a></li>
+                    <li><a class="getstarted scrollto" href="http://10.62.131.46">Home</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -80,7 +82,7 @@
             <div class="section-title mb-3 pt-5" data-aos="fade-up">
                 <h2>Menu</h2>
                 <p>Crafting Excellence, Scene by Scene.</p>
-            </div>
+            </div> 
 
             <div class="row">
                 @foreach($links as $link)
@@ -122,7 +124,7 @@
         </div>
     </section>
 
-    <section id="about" class="about">
+    <!-- <section id="about" class="about">
         <div class="container">
 
             <div class="section-title" data-aos="fade-up">
@@ -158,7 +160,7 @@
             </div>
 
         </div>
-    </section>
+    </section> -->
 
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
