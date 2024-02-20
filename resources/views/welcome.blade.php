@@ -99,10 +99,10 @@
                                     <a type="submit" class="deleteBtn">Delete</a>
                                 </form>
                             </div>
-                            <a href="http://{{$link->url}}">
+                            <a href="http://{{$link->url}}" target="_blank">
                                 <div class="icon d-flex align-items-center justify-content-center" style="height: 100px; width: 100px;"><img src="{{ asset('images/'. $link->gambar . '.png') }}" alt="Your Image" style="max-height: 100px;">
                                 </div>
-                                <h4 class="title"><a href="http://{{$link->url}}">{{ $link->title}}</a></h4>
+                                <h4 class="title"><a href="http://{{$link->url}}" target="_blank">{{ $link->title}}</a></h4>
                             </a>
                         </div>
                     </div>
