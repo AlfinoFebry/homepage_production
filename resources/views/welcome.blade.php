@@ -87,7 +87,7 @@
                 @foreach($links as $link)
                 <div class="col-sm-6 col-md-4 col-xl-3 d-flex align-items-stretch mb-5 lg-0">
                     <div class="text-center w-100">
-                        <div class="icon-box w-100" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon-box w-100" data-aos="fade-up" data-aos-delay="100" style="cursor: pointer">
                             <button type="button" class="icon menu dropdown-btn d-flex align-items-center justify-content-center position-absolute top-0 end-0 mt-2 me-2 p-2" style="height: 30px; width: 30px;">
                                 <img class="img" src="assets/img/menu.png" alt="Your Image" style="max-height: 20px;">
                             </button>
@@ -99,11 +99,9 @@
                                     <a type="submit" class="deleteBtn">Delete</a>
                                 </form>
                             </div>
-                            <a href="http://{{$link->url}}" target="_blank">
-                                <div class="icon d-flex align-items-center justify-content-center" style="height: 100px; width: 100px;"><img src="{{ asset('images/'. $link->gambar . '.png') }}" alt="Your Image" style="max-height: 100px;">
-                                </div>
-                                <h4 class="title"><a href="http://{{$link->url}}" target="_blank">{{ $link->title}}</a></h4>
-                            </a>
+                            <div class="icon d-flex align-items-center justify-content-center" style="height: 100px; width: 100px;"><img src="{{ asset('images/'. $link->gambar . '.png') }}" alt="Your Image" style="max-height: 100px;">
+                            </div>
+                            <h4 class="title"><a href="http://{{$link->url}}" target="_blank" name="link">{{ $link->title}}</a></h4>
                         </div>
                     </div>
                 </div>
@@ -278,7 +276,25 @@
                     document.getElementById('passBtn').click();
                 }
             });
+
+            var iconBoxes = document.querySelectorAll('.icon-box');
+
+            iconBoxes.forEach(function (iconBox) {
+                iconBox.addEventListener('click', function () {
+                    var linkUrl = iconBox.querySelector('[name="link"]').getAttribute('href');
+                    window.open(linkUrl, '_blank');
+                });
+
+                var dropdownItems = iconBox.querySelectorAll('.dropdown-content a');
+
+                dropdownItems.forEach(function (item) {
+                    item.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                    });
+                });
+            });
         });
+
         $(document).ready(function() {
             var btnId = '';
             var value = '';
